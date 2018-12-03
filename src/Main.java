@@ -42,6 +42,7 @@ public class Main {
     }
 
     private static void playGame(String songTitle) {
-        System.out.println(songTitle);
+        SongBank songBank = new SongBank();
+        System.out.print(songBank.getSongByTitle(songTitle));
     }
 }
