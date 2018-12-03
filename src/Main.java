@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 public class Main {
 
@@ -9,8 +8,8 @@ public class Main {
     }
 
     private static void songSelection() {
-        JFrame appScreen = new JFrame("Piano Solo");
-        appScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame selectionScreen = new JFrame("Piano Solo");
+        selectionScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         String[] availableSongs = {"Song One - Easy", "Song Two - Easy", "Song Three - Medium", "Song Four - Medium", "Song Five - Hard"};
 
@@ -18,7 +17,7 @@ public class Main {
         songList.setSelectedIndex(4);
 
         songList.setBounds(60, 10, 180, 30);
-        appScreen.add(songList);
+        selectionScreen.add(songList);
 
         JButton goButton = new JButton("Play");
         goButton.setBounds(60, 50, 180, 30);
@@ -27,22 +26,35 @@ public class Main {
             try {
                 String selectedSong = (String) songList.getSelectedItem();
                 playGame(selectedSong);
-                appScreen.dispatchEvent(new WindowEvent(appScreen, WindowEvent.WINDOW_CLOSING));
+                selectionScreen.setVisible(false);
+                selectionScreen.dispose();
             } catch (Exception el) {
                 el.printStackTrace();
             }
         };
 
         goButton.addActionListener(baseListener);
-        appScreen.add(goButton);
+        selectionScreen.add(goButton);
 
-        appScreen.setSize(315, 150);
-        appScreen.setLayout(null);
-        appScreen.setVisible(true);
+        selectionScreen.setSize(315, 150);
+        selectionScreen.setLayout(null);
+        selectionScreen.setVisible(true);
     }
 
     private static void playGame(String songTitle) {
         SongBank songBank = new SongBank();
-        System.out.print(songBank.getSongByTitle(songTitle));
+        Song chosenSong = songBank.getSongByTitle(songTitle);
+
+        JFrame gameScreen = new JFrame("Piano Solo");
+        gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JLabel title = new JLabel("Hello");
+        title.setBounds(300, 300, 200, 50);
+
+        gameScreen.add(title);
+
+        gameScreen.setSize(800, 800);
+        gameScreen.setLayout(null);
+        gameScreen.setVisible(true);
     }
 }
