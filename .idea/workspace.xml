@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc7da15c-6356-4fad-b70c-7c313049aa2f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/JPanelWithBackground.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PianoSoloGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PianoSoloGame.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PianoSoloGame/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoSoloGame/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,22 +25,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2112" />
+          <entry key="java" value="3379" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2112" />
+          <entry key="JAVA" value="3379" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="3" />
+          <entry key="class" value="1" />
+          <entry key="java" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="3" />
+          <entry key="CLASS" value="1" />
+          <entry key="JAVA" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -48,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/src/SongBank.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+              <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
               <folding>
                 <element signature="e#448#449#0" expanded="true" />
                 <element signature="e#483#484#0" expanded="true" />
@@ -69,12 +74,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+            <state relative-caret-position="249">
+              <caret line="71" column="49" selection-start-line="71" selection-start-column="49" selection-end-line="71" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#160#161#0" expanded="true" />
                 <element signature="e#191#192#0" expanded="true" />
+                <element signature="e#4277#4278#0" expanded="true" />
+                <element signature="e#4342#4343#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JPanelWithBackground.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,15 +116,16 @@
       <list>
         <option value="$PROJECT_DIR$/src/Song.java" />
         <option value="$PROJECT_DIR$/src/SongBank.java" />
+        <option value="$PROJECT_DIR$/src/JPanelWithBackground.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1688" />
-    <option name="y" value="-386" />
-    <option name="width" value="1696" />
-    <option name="height" value="1036" />
+    <option name="x" value="-1202" />
+    <option name="y" value="-401" />
+    <option name="width" value="1357" />
+    <option name="height" value="829" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -124,7 +144,17 @@
             <path>
               <item name="PianoSoloGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="PianoSoloGame" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PianoSoloGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PianoSoloGame" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PianoSoloGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PianoSoloGame" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -135,12 +165,19 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543868498435" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543940283652" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jfugue-5.0.9.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lczer\Desktop\PianoSoloGame\lib" />
+      <recent name="C:\Users\lczer\Desktop\PianoSoloGame\src" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -193,7 +230,7 @@
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15770172" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
@@ -202,8 +239,8 @@
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3292683" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16186252" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991131" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -220,11 +257,18 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((ManagedPlayer)((Player)this).managedPlayer).finished" custom="org.jfugue.player.ManagedPlayer,org.jfugue.player.Player" />
+      </configuration>
+    </watches-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/SongBank.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
           <folding>
             <element signature="e#448#449#0" expanded="true" />
             <element signature="e#483#484#0" expanded="true" />
@@ -239,14 +283,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/JPanelWithBackground.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/jfugue-5.0.9.jar!/org/jfugue/player/Player.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="60" column="49" lean-forward="true" selection-start-line="60" selection-start-column="49" selection-end-line="60" selection-end-column="49" />
+          <folding>
+            <element signature="e#1757#1758#0" expanded="true" />
+            <element signature="e#1808#1809#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+        <state relative-caret-position="249">
+          <caret line="71" column="49" selection-start-line="71" selection-start-column="49" selection-end-line="71" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#160#161#0" expanded="true" />
             <element signature="e#191#192#0" expanded="true" />
+            <element signature="e#4277#4278#0" expanded="true" />
+            <element signature="e#4342#4343#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -315,6 +382,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>jfugue-5.0.9</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

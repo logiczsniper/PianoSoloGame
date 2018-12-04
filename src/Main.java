@@ -1,5 +1,11 @@
+import org.jfugue.player.Player;
+import org.jfugue.theory.Note;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.IOException;
 
 public class Main {
 
@@ -44,16 +50,75 @@ public class Main {
     private static void playGame(String songTitle) {
         SongBank songBank = new SongBank();
         Song chosenSong = songBank.getSongByTitle(songTitle);
+        Player player = new Player();
 
         JFrame gameScreen = new JFrame("Piano Solo");
         gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JLabel title = new JLabel("Hello");
-        title.setBounds(300, 300, 200, 50);
+        try {
+            gameScreen.setContentPane(new JPanelWithBackground("static/piano4.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        gameScreen.add(title);
+        gameScreen.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
 
-        gameScreen.setSize(800, 800);
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_Z:
+                        player.play(new Note("C").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_S:
+                        player.play(new Note("C#").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_X:
+                        player.play(new Note("D").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_D:
+                        player.play(new Note("D#").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_C:
+                        player.play(new Note("E").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_V:
+                        player.play(new Note("F").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_G:
+                        player.play(new Note("F#").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_B:
+                        player.play(new Note("G").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_H:
+                        player.play(new Note("G#").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_N:
+                        player.play(new Note("A").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_J:
+                        player.play(new Note("A#").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_M:
+                        player.play(new Note("B").setDuration(0.5));
+                        break;
+                    case KeyEvent.VK_K:
+                        player.play(new Note("B#").setDuration(0.5));
+                        break;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                player.getManagedPlayer().reset();
+            }
+        });
+
+        gameScreen.setSize(418, 597);
         gameScreen.setLayout(null);
         gameScreen.setVisible(true);
     }
