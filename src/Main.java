@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
+import java.awt.EventQueue;
 
 public class Main {
 
@@ -17,7 +17,7 @@ public class Main {
         JFrame selectionScreen = new JFrame("Piano Solo");
         selectionScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        String[] availableSongs = {"Song One - Easy", "Song Two - Easy", "Song Three - Medium", "Song Four - Medium", "Song Five - Hard"};
+        String[] availableSongs = {"Song Five - Hard", "Song Four - Medium", "Song Three - Medium", "Song Two - Easy", "Song One - Easy"};
 
         JComboBox<String> songList = new JComboBox<>(availableSongs);
         songList.setSelectedIndex(4);
@@ -52,74 +52,68 @@ public class Main {
         Song chosenSong = songBank.getSongByTitle(songTitle);
         Player player = new Player();
 
-        JFrame gameScreen = new JFrame("Piano Solo");
-        gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        EventQueue.invokeLater(() -> {
+            AnimationJFrame gameScreen = new AnimationJFrame("Piano Solo");
 
-        try {
-            gameScreen.setContentPane(new JPanelWithBackground("static/piano4.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        gameScreen.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_Z:
-                        player.play(new Note("C").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_S:
-                        player.play(new Note("C#").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_X:
-                        player.play(new Note("D").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_D:
-                        player.play(new Note("D#").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_C:
-                        player.play(new Note("E").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_V:
-                        player.play(new Note("F").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_G:
-                        player.play(new Note("F#").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_B:
-                        player.play(new Note("G").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_H:
-                        player.play(new Note("G#").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_N:
-                        player.play(new Note("A").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_J:
-                        player.play(new Note("A#").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_M:
-                        player.play(new Note("B").setDuration(0.5));
-                        break;
-                    case KeyEvent.VK_K:
-                        player.play(new Note("B#").setDuration(0.5));
-                        break;
+            gameScreen.addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
                 }
-            }
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-                player.getManagedPlayer().reset();
-            }
+                @Override
+                public void keyPressed(KeyEvent e) {
+
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_Z:
+                            player.play(new Note("C").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_S:
+                            player.play(new Note("C#").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_X:
+                            player.play(new Note("D").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_D:
+                            player.play(new Note("D#").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_C:
+                            player.play(new Note("E").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_V:
+                            player.play(new Note("F").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_G:
+                            player.play(new Note("F#").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_B:
+                            player.play(new Note("G").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_H:
+                            player.play(new Note("G#").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_N:
+                            player.play(new Note("A").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_J:
+                            player.play(new Note("A#").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_M:
+                            player.play(new Note("B").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                        case KeyEvent.VK_K:
+                            player.play(new Note("B#").setDuration(chosenSong.defaultNoteDuration));
+                            break;
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                }
+            });
+
+            gameScreen.setSize(418, 597);
+            gameScreen.setLayout(null);
+            gameScreen.setVisible(true);
         });
-
-        gameScreen.setSize(418, 597);
-        gameScreen.setLayout(null);
-        gameScreen.setVisible(true);
     }
 }
