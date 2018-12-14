@@ -47,6 +47,61 @@ public class Main {
         selectionScreen.setVisible(true);
     }
 
+
+    public static class MyThread extends Thread {
+
+        AnimationJFrame gameScreen;
+        Song chosenSong;
+
+        MyThread(AnimationJFrame gameScreen, Song chosenSong) {
+            this.gameScreen = gameScreen;
+            this.chosenSong = chosenSong;
+        }
+
+        // TODO: make a method to identify key events as this is the second time ive had to
+        // TODO: it works, but when the note is first displayed, the JFrame compresses. FIX.
+        public void run(){
+            for (char character : chosenSong.value.toCharArray()) {
+                switch (character) {
+                    case '.':
+                        try {
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case KeyEvent.VK_Z:
+                        gameScreen.animateNote(0);
+                        break;
+                    case KeyEvent.VK_S:
+                        break;
+                    case KeyEvent.VK_X:
+                        break;
+                    case KeyEvent.VK_D:
+                        break;
+                    case KeyEvent.VK_C:
+                        break;
+                    case KeyEvent.VK_V:
+                        break;
+                    case KeyEvent.VK_G:
+                        break;
+                    case KeyEvent.VK_B:
+                        break;
+                    case KeyEvent.VK_H:
+                        break;
+                    case KeyEvent.VK_N:
+                        break;
+                    case KeyEvent.VK_J:
+                        break;
+                    case KeyEvent.VK_M:
+                        break;
+                    case KeyEvent.VK_K:
+                        break;
+                }
+            }
+        }
+    }
+
     private static void playGame(String songTitle) {
         SongBank songBank = new SongBank();
         Song chosenSong = songBank.getSongByTitle(songTitle);
@@ -54,6 +109,11 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
             AnimationJFrame gameScreen = new AnimationJFrame("Piano Solo");
+
+            gameScreen.animateNote(200);
+
+            MyThread noteDisplayThread = new MyThread(gameScreen, chosenSong);
+            noteDisplayThread.start();
 
             gameScreen.addKeyListener(new KeyListener() {
                 @Override
@@ -112,7 +172,7 @@ public class Main {
             });
 
             gameScreen.setSize(418, 597);
-            gameScreen.setLayout(null);
+            gameScreen.setLayout(new SpringLayout());
             gameScreen.setVisible(true);
         });
     }

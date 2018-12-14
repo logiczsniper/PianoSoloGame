@@ -1,6 +1,6 @@
 class SongBank {
 
-    private final Song songOne = new Song("Song One", "", "Easy");
+    private final Song songOne = new Song("Song One", "..Z..", "Easy");
     private final Song songTwo = new Song("Song Two", "", "Easy");
     private final Song songThree = new Song("Song Three", "", "Medium");
     private final Song songFour = new Song("Song Four", "", "Medium");

@@ -8,6 +8,11 @@ class AnimationJFrame extends JFrame {
         initUI();
     }
 
+    void animateNote(int init_x) {
+        add(new Board(init_x, this));
+        pack();
+    }
+
     private void initUI() {
 
         try {
@@ -15,9 +20,6 @@ class AnimationJFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        add(new Board());
-        pack();
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

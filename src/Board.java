@@ -5,13 +5,16 @@ import java.awt.event.ActionListener;
 
 public class Board extends JPanel implements ActionListener {
 
+    private final int INITIAL_X;
     private final int INITIAL_Y = -200;
+    private AnimationJFrame originalJFrame;
 
     private Image note;
     private int x, y;
 
-    Board() {
-
+    Board(int init_x, AnimationJFrame originalJFrame) {
+        this.INITIAL_X = init_x;
+        this.originalJFrame = originalJFrame;
         initBoard();
     }
 
@@ -31,10 +34,10 @@ public class Board extends JPanel implements ActionListener {
 
         loadImage();
 
-        x = 0;
+        x = INITIAL_X;
         y = INITIAL_Y;
 
-        int DELAY = 20;
+        int DELAY = 10;
         Timer timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -55,14 +58,11 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // System.out.println(y);
-
-        y += 1;
+        y += 2;
 
         if (y > 350) {
 
             y = INITIAL_Y;
-            x = 0;
         }
 
         repaint();
