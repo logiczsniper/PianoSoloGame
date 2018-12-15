@@ -18,16 +18,41 @@ public class Board extends JPanel implements ActionListener {
         initBoard();
     }
 
+    private boolean contains(int[] inputArray, int toFind) {
+
+        boolean found = false;
+
+        for (int givenInteger : inputArray) {
+            if (toFind == givenInteger) {
+                found = true;
+                break;
+            }
+        }
+
+        return found;
+    }
+
+    private String getNoteImagePath() {
+
+        int[] blackKeyValues = {39, 97, 211, 270, 328};
+
+        if (contains(blackKeyValues, this.INITIAL_X)) {
+            return "static/noteSharpFlat.png";
+        }
+
+        return "static/noteBase.png";
+    }
+
     private void loadImage() {
 
-        ImageIcon ii = new ImageIcon("static/noteBase.png");
+        ImageIcon ii = new ImageIcon(getNoteImagePath());
         note = ii.getImage();
     }
 
     private void initBoard() {
 
-        int PANEL_WIDTH = 418;
-        int PANEL_HEIGHT = 597;
+        int PANEL_WIDTH = originalJFrame.WINDOW_WIDTH;
+        int PANEL_HEIGHT = originalJFrame.WINDOW_HEIGHT;
         setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 
         setOpaque(false);

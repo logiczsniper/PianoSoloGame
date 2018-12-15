@@ -48,19 +48,17 @@ public class Main {
     }
 
 
-    public static class MyThread extends Thread {
+    public static class NoteDisplayThread extends Thread {
 
         AnimationJFrame gameScreen;
         Song chosenSong;
 
-        MyThread(AnimationJFrame gameScreen, Song chosenSong) {
+        NoteDisplayThread(AnimationJFrame gameScreen, Song chosenSong) {
             this.gameScreen = gameScreen;
             this.chosenSong = chosenSong;
         }
 
-        // TODO: make a method to identify key events as this is the second time ive had to
-        // TODO: it works, but when the note is first displayed, the JFrame compresses. FIX.
-        public void run(){
+        public void run() {
             for (char character : chosenSong.value.toCharArray()) {
                 switch (character) {
                     case '.':
@@ -71,33 +69,66 @@ public class Main {
                         }
                         break;
                     case KeyEvent.VK_Z:
-                        gameScreen.animateNote(0);
+                        gameScreen.animateNote(4);
                         break;
                     case KeyEvent.VK_S:
+                        gameScreen.animateNote(39);
                         break;
                     case KeyEvent.VK_X:
+                        gameScreen.animateNote(69);
                         break;
                     case KeyEvent.VK_D:
+                        gameScreen.animateNote(97);
                         break;
                     case KeyEvent.VK_C:
+                        gameScreen.animateNote(133);
                         break;
                     case KeyEvent.VK_V:
+                        gameScreen.animateNote(173);
                         break;
                     case KeyEvent.VK_G:
+                        gameScreen.animateNote(211);
                         break;
                     case KeyEvent.VK_B:
+                        gameScreen.animateNote(241);
                         break;
                     case KeyEvent.VK_H:
+                        gameScreen.animateNote(270);
                         break;
                     case KeyEvent.VK_N:
+                        gameScreen.animateNote(301);
                         break;
                     case KeyEvent.VK_J:
+                        gameScreen.animateNote(328);
                         break;
                     case KeyEvent.VK_M:
+                        gameScreen.animateNote(363);
                         break;
-                    case KeyEvent.VK_K:
-                        break;
+
+                    default:
+                        System.out.println("Note Unrecognised");
                 }
+            }
+        }
+    }
+
+    public static class NotePlayThread extends Thread {
+
+        Player player;
+        Song chosenSong;
+        String currentNote;
+
+        NotePlayThread(Player player, Song chosenSong, String currentNote) {
+            this.player = player;
+            this.chosenSong = chosenSong;
+            this.currentNote = currentNote;
+        }
+
+        public void run() {
+            try {
+                player.play(new Note(currentNote).setDuration(chosenSong.defaultNoteDuration));
+            } catch (java.lang.IllegalStateException ISE) {
+                System.out.println("Failed to play two notes at once");
             }
         }
     }
@@ -109,10 +140,9 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
             AnimationJFrame gameScreen = new AnimationJFrame("Piano Solo");
+            gameScreen.setSize(gameScreen.WINDOW_WIDTH, gameScreen.WINDOW_HEIGHT);
 
-            gameScreen.animateNote(200);
-
-            MyThread noteDisplayThread = new MyThread(gameScreen, chosenSong);
+            NoteDisplayThread noteDisplayThread = new NoteDisplayThread(gameScreen, chosenSong);
             noteDisplayThread.start();
 
             gameScreen.addKeyListener(new KeyListener() {
@@ -125,43 +155,40 @@ public class Main {
 
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_Z:
-                            player.play(new Note("C").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "C");
                             break;
                         case KeyEvent.VK_S:
-                            player.play(new Note("C#").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "C#");
                             break;
                         case KeyEvent.VK_X:
-                            player.play(new Note("D").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "D");
                             break;
                         case KeyEvent.VK_D:
-                            player.play(new Note("D#").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "D#");
                             break;
                         case KeyEvent.VK_C:
-                            player.play(new Note("E").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "E");
                             break;
                         case KeyEvent.VK_V:
-                            player.play(new Note("F").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "F");
                             break;
                         case KeyEvent.VK_G:
-                            player.play(new Note("F#").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "F#");
                             break;
                         case KeyEvent.VK_B:
-                            player.play(new Note("G").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "G");
                             break;
                         case KeyEvent.VK_H:
-                            player.play(new Note("G#").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "G#");
                             break;
                         case KeyEvent.VK_N:
-                            player.play(new Note("A").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "A");
                             break;
                         case KeyEvent.VK_J:
-                            player.play(new Note("A#").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "A#");
                             break;
                         case KeyEvent.VK_M:
-                            player.play(new Note("B").setDuration(chosenSong.defaultNoteDuration));
-                            break;
-                        case KeyEvent.VK_K:
-                            player.play(new Note("B#").setDuration(chosenSong.defaultNoteDuration));
+                            playNote(player, chosenSong, "B");
                             break;
                     }
                 }
@@ -171,9 +198,12 @@ public class Main {
                 }
             });
 
-            gameScreen.setSize(418, 597);
-            gameScreen.setLayout(new SpringLayout());
             gameScreen.setVisible(true);
         });
+    }
+
+    private static void playNote(Player player, Song chosenSong, String currentNote) {
+        NotePlayThread notePlayThread = new NotePlayThread(player, chosenSong, currentNote);
+        notePlayThread.start();
     }
 }
