@@ -1,10 +1,10 @@
 class SongBank {
 
-    private final Song songOne = new Song("Song One", ".Z.S.X.D.C.V.G.B.H.N.J.M.", "Easy");
-    private final Song songTwo = new Song("Song Two", "", "Easy");
-    private final Song songThree = new Song("Song Three", "", "Medium");
-    private final Song songFour = new Song("Song Four", "", "Medium");
-    private final Song songFive = new Song("Song Five", "", "Hard");
+    private final Song songOne = new Song("Song One", "..Z....Z..Z....Z.Z....ZZ", "Easy");
+    private final Song songTwo = new Song("Song Two", ".Z", "Easy");
+    private final Song songThree = new Song("Song Three", ".Z", "Medium");
+    private final Song songFour = new Song("Song Four", ".Z", "Medium");
+    private final Song songFive = new Song("Song Five", ".Z", "Hard");
 
     private final Song[] allSongs = {songOne, songTwo, songThree, songFour, songFive};
 

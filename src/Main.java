@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.EventQueue;
+import java.util.HashMap;
 
 public class Main {
 
@@ -139,7 +140,7 @@ public class Main {
         Player player = new Player();
 
         EventQueue.invokeLater(() -> {
-            AnimationJFrame gameScreen = new AnimationJFrame("Piano Solo");
+            AnimationJFrame gameScreen = new AnimationJFrame("Piano Solo", chosenSong);
             gameScreen.setSize(gameScreen.WINDOW_WIDTH, gameScreen.WINDOW_HEIGHT);
 
             NoteDisplayThread noteDisplayThread = new NoteDisplayThread(gameScreen, chosenSong);
@@ -153,42 +154,57 @@ public class Main {
                 @Override
                 public void keyPressed(KeyEvent e) {
 
+                    HashMap<Integer, Boolean> noteHitValues = gameScreen.noteHitValues;
+                    HashMap<Integer, Board> noteXValues = gameScreen.noteXValues;
+
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_Z:
                             playNote(player, chosenSong, "C");
+                            noteHitRecognition(noteHitValues, noteXValues, 4);
                             break;
                         case KeyEvent.VK_S:
                             playNote(player, chosenSong, "C#");
+                            noteHitRecognition(noteHitValues, noteXValues, 39);
                             break;
                         case KeyEvent.VK_X:
                             playNote(player, chosenSong, "D");
+                            noteHitRecognition(noteHitValues, noteXValues, 69);
                             break;
                         case KeyEvent.VK_D:
                             playNote(player, chosenSong, "D#");
+                            noteHitRecognition(noteHitValues, noteXValues, 97);
                             break;
                         case KeyEvent.VK_C:
                             playNote(player, chosenSong, "E");
+                            noteHitRecognition(noteHitValues, noteXValues, 133);
                             break;
                         case KeyEvent.VK_V:
                             playNote(player, chosenSong, "F");
+                            noteHitRecognition(noteHitValues, noteXValues, 173);
                             break;
                         case KeyEvent.VK_G:
                             playNote(player, chosenSong, "F#");
+                            noteHitRecognition(noteHitValues, noteXValues, 211);
                             break;
                         case KeyEvent.VK_B:
                             playNote(player, chosenSong, "G");
+                            noteHitRecognition(noteHitValues, noteXValues, 241);
                             break;
                         case KeyEvent.VK_H:
                             playNote(player, chosenSong, "G#");
+                            noteHitRecognition(noteHitValues, noteXValues, 270);
                             break;
                         case KeyEvent.VK_N:
                             playNote(player, chosenSong, "A");
+                            noteHitRecognition(noteHitValues, noteXValues, 301);
                             break;
                         case KeyEvent.VK_J:
                             playNote(player, chosenSong, "A#");
+                            noteHitRecognition(noteHitValues, noteXValues, 328);
                             break;
                         case KeyEvent.VK_M:
                             playNote(player, chosenSong, "B");
+                            noteHitRecognition(noteHitValues, noteXValues, 363);
                             break;
                     }
                 }
@@ -200,6 +216,18 @@ public class Main {
 
             gameScreen.setVisible(true);
         });
+    }
+
+    private static void noteHitRecognition(HashMap<Integer, Boolean> noteHitValues, HashMap<Integer, Board> noteXValues, int x_value) {
+        try {
+            if (noteHitValues.get(x_value)) {
+                Board currentNote = noteXValues.get(x_value);
+                currentNote.hasBeenHit = true;
+                currentNote.loadImage(true);
+            }
+        } catch (NullPointerException npe) {
+            System.out.println("No such note on the JFrame");
+        }
     }
 
     private static void playNote(Player player, Song chosenSong, String currentNote) {

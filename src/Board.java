@@ -6,15 +6,32 @@ import java.awt.event.ActionListener;
 public class Board extends JPanel implements ActionListener {
 
     private final int INITIAL_X;
-    private final int INITIAL_Y = -200;
     private AnimationJFrame originalJFrame;
 
     private Image note;
-    private int x, y;
+    private int x;
+    int y;
+    private int y_change;
 
-    Board(int init_x, AnimationJFrame originalJFrame) {
+    boolean canHit = false;
+    boolean hasBeenHit = false;
+
+    Board(int init_x, AnimationJFrame originalJFrame, Song chosenSong) {
         this.INITIAL_X = init_x;
         this.originalJFrame = originalJFrame;
+
+        switch (chosenSong.difficulty) {
+            case "Easy":
+                this.y_change = 1;
+                break;
+            case "Medium":
+                this.y_change = 2;
+                break;
+            case "Hard":
+                this.y_change = 4;
+                break;
+        }
+
         initBoard();
     }
 
@@ -32,20 +49,25 @@ public class Board extends JPanel implements ActionListener {
         return found;
     }
 
-    private String getNoteImagePath() {
+    private String getNoteImagePath(boolean hit) {
 
         int[] blackKeyValues = {39, 97, 211, 270, 328};
 
         if (contains(blackKeyValues, this.INITIAL_X)) {
+            if (hit) {
+                return "static/noteBase.png";
+            }
             return "static/noteSharpFlat.png";
         }
-
+        if (hit) {
+            return "static/noteSharpFlat.png";
+        }
         return "static/noteBase.png";
     }
 
-    private void loadImage() {
+    void loadImage(boolean hit) {
 
-        ImageIcon ii = new ImageIcon(getNoteImagePath());
+        ImageIcon ii = new ImageIcon(getNoteImagePath(hit));
         note = ii.getImage();
     }
 
@@ -57,10 +79,10 @@ public class Board extends JPanel implements ActionListener {
 
         setOpaque(false);
 
-        loadImage();
+        loadImage(false);
 
         x = INITIAL_X;
-        y = INITIAL_Y;
+        y = -200;
 
         int DELAY = 10;
         Timer timer = new Timer(DELAY, this);
@@ -83,11 +105,13 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        y += 2;
+        System.out.println(y);
+        y += y_change;
+        this.canHit = y > 300 && y < 400;
+        this.originalJFrame.updateNoteHitValues(this.x, this.canHit, this);
 
-        if (y > 350) {
-
-            y = INITIAL_Y;
+        if (y == 360 && !this.hasBeenHit) {
+            originalJFrame.lifeRemaining -= 1;
         }
 
         repaint();
