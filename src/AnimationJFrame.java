@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,8 +12,8 @@ class AnimationJFrame extends JFrame {
     private Song chosenSong;
 
     int lifeRemaining = 2;
-    HashMap<Integer, Boolean> noteHitValues = new HashMap<>();
-    HashMap<Integer, Board> noteXValues = new HashMap<>();
+
+    HashMap<Pair, Board> notePositions = new HashMap<>();
 
     AnimationJFrame(String title, Song chosenSong) {
         super(title);
@@ -25,17 +27,15 @@ class AnimationJFrame extends JFrame {
         pack();
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        noteHitValues.put(init_x, noteBoard.canHit);
-        noteXValues.put(init_x, noteBoard);
+        Pair notePos = new Pair<>(noteBoard.x, noteBoard.y);
+        notePositions.put(notePos, noteBoard);
     }
 
-    void updateNoteHitValues(Integer init_x, Boolean canHit, Board note) {
-        if (!(note.y >= 400)) {
-            this.noteHitValues.replace(init_x, canHit);
-            this.noteXValues.replace(init_x, note);
+    void updateNoteHitValues(Board note, Pair oldNotePos) {
+        if (!(note.y >= 450)) {
+            this.notePositions.put(new Pair<>(note.x, note.y), this.notePositions.remove(oldNotePos));
         } else {
-            this.noteHitValues.remove(init_x, canHit);
-            this.noteXValues.remove(init_x, note);
+            this.notePositions.remove(oldNotePos, note);
         }
     }
 

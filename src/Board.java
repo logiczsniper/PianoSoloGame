@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,8 +11,7 @@ public class Board extends JPanel implements ActionListener {
     private AnimationJFrame originalJFrame;
 
     private Image note;
-    private int x;
-    int y;
+    int x, y;
     private int y_change;
 
     boolean canHit = false;
@@ -23,12 +24,15 @@ public class Board extends JPanel implements ActionListener {
         switch (chosenSong.difficulty) {
             case "Easy":
                 this.y_change = 1;
+                this.originalJFrame.lifeRemaining = 6;
                 break;
             case "Medium":
                 this.y_change = 2;
+                this.originalJFrame.lifeRemaining = 4;
                 break;
             case "Hard":
                 this.y_change = 4;
+                this.originalJFrame.lifeRemaining = 2;
                 break;
         }
 
@@ -105,14 +109,16 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        System.out.println(y);
+        Pair oldNotePos = new Pair<>(x, y);
+
         y += y_change;
-        this.canHit = y > 300 && y < 400;
-        this.originalJFrame.updateNoteHitValues(this.x, this.canHit, this);
+        this.canHit = y > 290 && y < 400;
+        this.originalJFrame.updateNoteHitValues(this, oldNotePos);
 
         if (y == 360 && !this.hasBeenHit) {
             originalJFrame.lifeRemaining -= 1;
         }
+        System.out.println(originalJFrame.lifeRemaining);
 
         repaint();
     }

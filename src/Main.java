@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import org.jfugue.player.Player;
 import org.jfugue.theory.Note;
 
@@ -154,57 +155,54 @@ public class Main {
                 @Override
                 public void keyPressed(KeyEvent e) {
 
-                    HashMap<Integer, Boolean> noteHitValues = gameScreen.noteHitValues;
-                    HashMap<Integer, Board> noteXValues = gameScreen.noteXValues;
-
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_Z:
                             playNote(player, chosenSong, "C");
-                            noteHitRecognition(noteHitValues, noteXValues, 4);
+                            noteHitRecognition(4, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_S:
                             playNote(player, chosenSong, "C#");
-                            noteHitRecognition(noteHitValues, noteXValues, 39);
+                            noteHitRecognition(39, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_X:
                             playNote(player, chosenSong, "D");
-                            noteHitRecognition(noteHitValues, noteXValues, 69);
+                            noteHitRecognition(69, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_D:
                             playNote(player, chosenSong, "D#");
-                            noteHitRecognition(noteHitValues, noteXValues, 97);
+                            noteHitRecognition(97, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_C:
                             playNote(player, chosenSong, "E");
-                            noteHitRecognition(noteHitValues, noteXValues, 133);
+                            noteHitRecognition(133, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_V:
                             playNote(player, chosenSong, "F");
-                            noteHitRecognition(noteHitValues, noteXValues, 173);
+                            noteHitRecognition(173, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_G:
                             playNote(player, chosenSong, "F#");
-                            noteHitRecognition(noteHitValues, noteXValues, 211);
+                            noteHitRecognition(211, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_B:
                             playNote(player, chosenSong, "G");
-                            noteHitRecognition(noteHitValues, noteXValues, 241);
+                            noteHitRecognition(241, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_H:
                             playNote(player, chosenSong, "G#");
-                            noteHitRecognition(noteHitValues, noteXValues, 270);
+                            noteHitRecognition(270, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_N:
                             playNote(player, chosenSong, "A");
-                            noteHitRecognition(noteHitValues, noteXValues, 301);
+                            noteHitRecognition(301, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_J:
                             playNote(player, chosenSong, "A#");
-                            noteHitRecognition(noteHitValues, noteXValues, 328);
+                            noteHitRecognition(328, gameScreen.notePositions);
                             break;
                         case KeyEvent.VK_M:
                             playNote(player, chosenSong, "B");
-                            noteHitRecognition(noteHitValues, noteXValues, 363);
+                            noteHitRecognition(363, gameScreen.notePositions);
                             break;
                     }
                 }
@@ -218,16 +216,23 @@ public class Main {
         });
     }
 
-    private static void noteHitRecognition(HashMap<Integer, Boolean> noteHitValues, HashMap<Integer, Board> noteXValues, int x_value) {
+    private static void noteHitRecognition(int x_value, HashMap<Pair, Board> notePositions) {
         try {
-            if (noteHitValues.get(x_value)) {
-                Board currentNote = noteXValues.get(x_value);
-                currentNote.hasBeenHit = true;
-                currentNote.loadImage(true);
-            }
-        } catch (NullPointerException npe) {
-            System.out.println("No such note on the JFrame");
+            Board potentialNote = identifyNote(notePositions, x_value);
+            assert potentialNote != null;
+            potentialNote.hasBeenHit = true;
+            potentialNote.loadImage(true);
+        } catch (NullPointerException ignored) {
         }
+    }
+
+    private static Board identifyNote(HashMap<Pair, Board> notePositions, int x_value) {
+        for (Board note : notePositions.values()) {
+            if (note.x == x_value && note.canHit) {
+                return note;
+            }
+        }
+        return null;
     }
 
     private static void playNote(Player player, Song chosenSong, String currentNote) {
