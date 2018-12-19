@@ -3,10 +3,10 @@ import org.jfugue.player.Player;
 import org.jfugue.theory.Note;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 import java.util.HashMap;
 
 public class Main {
@@ -135,6 +135,18 @@ public class Main {
         }
     }
 
+    private static Hearts displayLife(int maxLives) {
+        JFrame heartScreen = new JFrame("Life Remaining: ");
+        heartScreen.setSize(385, 120);
+        heartScreen.getContentPane().setBackground(new Color(47, 46, 44));
+        Hearts allHearts = new Hearts(maxLives);
+        heartScreen.add(allHearts);
+        heartScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        heartScreen.setVisible(true);
+
+        return allHearts;
+    }
+
     private static void playGame(String songTitle) {
         SongBank songBank = new SongBank();
         Song chosenSong = songBank.getSongByTitle(songTitle);
@@ -142,6 +154,8 @@ public class Main {
 
         EventQueue.invokeLater(() -> {
             AnimationJFrame gameScreen = new AnimationJFrame("Piano Solo", chosenSong);
+            gameScreen.allHearts = displayLife(gameScreen.lifeRemaining);
+
             gameScreen.setSize(gameScreen.WINDOW_WIDTH, gameScreen.WINDOW_HEIGHT);
 
             NoteDisplayThread noteDisplayThread = new NoteDisplayThread(gameScreen, chosenSong);

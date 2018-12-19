@@ -71,7 +71,8 @@ public class Board extends JPanel implements ActionListener {
 
     void loadImage(boolean hit) {
 
-        ImageIcon ii = new ImageIcon(getNoteImagePath(hit));
+        String path = (y >= 400) ? "static/noteFail.png" : getNoteImagePath(hit);
+        ImageIcon ii = new ImageIcon(path);
         note = ii.getImage();
     }
 
@@ -115,11 +116,11 @@ public class Board extends JPanel implements ActionListener {
         this.canHit = y > 290 && y < 400;
         this.originalJFrame.updateNoteHitValues(this, oldNotePos);
 
-        if (y == 360 && !this.hasBeenHit) {
-            originalJFrame.lifeRemaining -= 1;
+        if (y == 400 && !this.hasBeenHit) {
+            originalJFrame.allHearts.maxLives -= 1;
+            originalJFrame.allHearts.repaint();
+            loadImage(false);
         }
-        System.out.println(originalJFrame.lifeRemaining);
-
         repaint();
     }
 }

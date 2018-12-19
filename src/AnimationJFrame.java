@@ -10,6 +10,7 @@ class AnimationJFrame extends JFrame {
     final int WINDOW_WIDTH = 418;
     final int WINDOW_HEIGHT = 597;
     private Song chosenSong;
+    Hearts allHearts;
 
     int lifeRemaining = 2;
 
@@ -41,8 +42,20 @@ class AnimationJFrame extends JFrame {
 
     private void initUI() {
 
+        switch (chosenSong.difficulty) {
+            case "Easy":
+                this.lifeRemaining = 6;
+                break;
+            case "Medium":
+                this.lifeRemaining = 4;
+                break;
+            case "Hard":
+                this.lifeRemaining = 2;
+                break;
+        }
+
         try {
-            setContentPane(new JPanelWithBackground("static/piano4.jpg"));
+            setContentPane(new JPanelWithBackground("static/piano.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
