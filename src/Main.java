@@ -17,17 +17,21 @@ public class Main {
 
     private static void songSelection() {
         JFrame selectionScreen = new JFrame("Piano Solo");
-        selectionScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        screenSetUp(selectionScreen);
 
         String[] availableSongs = {"Song Five - Hard", "Song Four - Medium", "Song Three - Medium", "Song Two - Easy", "Song One - Easy"};
 
         JComboBox<String> songList = new JComboBox<>(availableSongs);
         songList.setSelectedIndex(4);
+        songList.setBackground(Color.WHITE);
+        songList.setFont(new Font("Bodoni", Font.PLAIN, 15));
+        songList.setForeground(new Color(47, 46, 44));
 
         songList.setBounds(60, 10, 180, 30);
         selectionScreen.add(songList);
 
-        JButton goButton = new JButton("Play");
+        JButton goButton = new JButton(new ImageIcon("static/playButton.png"));
+        goButton.setBackground(Color.WHITE);
         goButton.setBounds(60, 50, 180, 30);
 
         ActionListener baseListener = e -> {
@@ -135,13 +139,18 @@ public class Main {
         }
     }
 
+    private static void screenSetUp(JFrame screen) {
+        screen.getContentPane().setBackground(new Color(47, 46, 44));
+        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        screen.setIconImage(Toolkit.getDefaultToolkit().getImage("static/appIcon.png"));
+    }
+
     private static Hearts displayLife(int maxLives) {
         JFrame heartScreen = new JFrame("Life Remaining: ");
         heartScreen.setSize(385, 120);
-        heartScreen.getContentPane().setBackground(new Color(47, 46, 44));
         Hearts allHearts = new Hearts(maxLives);
         heartScreen.add(allHearts);
-        heartScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        screenSetUp(heartScreen);
         heartScreen.setVisible(true);
 
         return allHearts;
@@ -155,7 +164,7 @@ public class Main {
         EventQueue.invokeLater(() -> {
             AnimationJFrame gameScreen = new AnimationJFrame("Piano Solo", chosenSong);
             gameScreen.allHearts = displayLife(gameScreen.lifeRemaining);
-
+            screenSetUp(gameScreen);
             gameScreen.setSize(gameScreen.WINDOW_WIDTH, gameScreen.WINDOW_HEIGHT);
 
             NoteDisplayThread noteDisplayThread = new NoteDisplayThread(gameScreen, chosenSong);

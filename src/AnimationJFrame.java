@@ -62,6 +62,5 @@ class AnimationJFrame extends JFrame {
 
         setLayout(new SpringLayout());
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
