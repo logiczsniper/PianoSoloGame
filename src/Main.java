@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
+import static java.lang.Thread.sleep;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -53,67 +55,99 @@ public class Main {
         selectionScreen.setVisible(true);
     }
 
+    private static void analyzeKeyEvent(char character, boolean animateNote, AnimationJFrame gameScreen, Player player,
+                                        Song chosenSong) {
+
+        int x_value = 0;
+        String currentNote = "";
+
+        switch (Character.toLowerCase(character)) {
+            case '.':
+                if (animateNote) {
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case 'z':
+                x_value = 4;
+                currentNote = "C";
+                break;
+            case 's':
+                x_value = 39;
+                currentNote = "C#";
+                break;
+            case 'x':
+                x_value = 69;
+                currentNote = "D";
+                break;
+            case 'd':
+                x_value = 97;
+                currentNote = "D#";
+                break;
+            case 'c':
+                x_value = 133;
+                currentNote = "E";
+                break;
+            case 'v':
+                x_value = 173;
+                currentNote = "F";
+                break;
+            case 'g':
+                x_value = 211;
+                currentNote = "F#";
+                break;
+            case 'b':
+                x_value = 241;
+                currentNote = "G";
+                break;
+            case 'h':
+                x_value = 270;
+                currentNote = "G#";
+                break;
+            case 'n':
+                x_value = 301;
+                currentNote = "A";
+                break;
+            case 'j':
+                x_value = 328;
+                currentNote = "A#";
+                break;
+            case 'm':
+                x_value = 363;
+                currentNote = "B";
+                break;
+
+            default:
+                System.out.println("Note Failure");
+        }
+
+        if (animateNote && x_value != 0) {
+            gameScreen.animateNote(x_value);
+        } else if (!(currentNote.equals(""))) {
+            playNote(player, chosenSong, currentNote);
+            noteHitRecognition(x_value, gameScreen.notePositions);
+        }
+    }
+
 
     public static class NoteDisplayThread extends Thread {
 
         AnimationJFrame gameScreen;
         Song chosenSong;
+        Player player;
 
-        NoteDisplayThread(AnimationJFrame gameScreen, Song chosenSong) {
+        NoteDisplayThread(AnimationJFrame gameScreen, Song chosenSong, Player player) {
             this.gameScreen = gameScreen;
             this.chosenSong = chosenSong;
+            this.player = player;
         }
 
         public void run() {
             for (char character : chosenSong.value.toCharArray()) {
-                switch (character) {
-                    case '.':
-                        try {
-                            sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case KeyEvent.VK_Z:
-                        gameScreen.animateNote(4);
-                        break;
-                    case KeyEvent.VK_S:
-                        gameScreen.animateNote(39);
-                        break;
-                    case KeyEvent.VK_X:
-                        gameScreen.animateNote(69);
-                        break;
-                    case KeyEvent.VK_D:
-                        gameScreen.animateNote(97);
-                        break;
-                    case KeyEvent.VK_C:
-                        gameScreen.animateNote(133);
-                        break;
-                    case KeyEvent.VK_V:
-                        gameScreen.animateNote(173);
-                        break;
-                    case KeyEvent.VK_G:
-                        gameScreen.animateNote(211);
-                        break;
-                    case KeyEvent.VK_B:
-                        gameScreen.animateNote(241);
-                        break;
-                    case KeyEvent.VK_H:
-                        gameScreen.animateNote(270);
-                        break;
-                    case KeyEvent.VK_N:
-                        gameScreen.animateNote(301);
-                        break;
-                    case KeyEvent.VK_J:
-                        gameScreen.animateNote(328);
-                        break;
-                    case KeyEvent.VK_M:
-                        gameScreen.animateNote(363);
-                        break;
-
-                    default:
-                        System.out.println("Note Unrecognised");
-                }
+                analyzeKeyEvent(character, true, gameScreen, player, chosenSong);
             }
         }
     }
@@ -167,7 +201,7 @@ public class Main {
             screenSetUp(gameScreen);
             gameScreen.setSize(gameScreen.WINDOW_WIDTH, gameScreen.WINDOW_HEIGHT);
 
-            NoteDisplayThread noteDisplayThread = new NoteDisplayThread(gameScreen, chosenSong);
+            NoteDisplayThread noteDisplayThread = new NoteDisplayThread(gameScreen, chosenSong, player);
             noteDisplayThread.start();
 
             gameScreen.addKeyListener(new KeyListener() {
@@ -177,57 +211,7 @@ public class Main {
 
                 @Override
                 public void keyPressed(KeyEvent e) {
-
-                    switch (e.getKeyCode()) {
-                        case KeyEvent.VK_Z:
-                            playNote(player, chosenSong, "C");
-                            noteHitRecognition(4, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_S:
-                            playNote(player, chosenSong, "C#");
-                            noteHitRecognition(39, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_X:
-                            playNote(player, chosenSong, "D");
-                            noteHitRecognition(69, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_D:
-                            playNote(player, chosenSong, "D#");
-                            noteHitRecognition(97, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_C:
-                            playNote(player, chosenSong, "E");
-                            noteHitRecognition(133, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_V:
-                            playNote(player, chosenSong, "F");
-                            noteHitRecognition(173, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_G:
-                            playNote(player, chosenSong, "F#");
-                            noteHitRecognition(211, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_B:
-                            playNote(player, chosenSong, "G");
-                            noteHitRecognition(241, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_H:
-                            playNote(player, chosenSong, "G#");
-                            noteHitRecognition(270, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_N:
-                            playNote(player, chosenSong, "A");
-                            noteHitRecognition(301, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_J:
-                            playNote(player, chosenSong, "A#");
-                            noteHitRecognition(328, gameScreen.notePositions);
-                            break;
-                        case KeyEvent.VK_M:
-                            playNote(player, chosenSong, "B");
-                            noteHitRecognition(363, gameScreen.notePositions);
-                            break;
-                    }
+                    analyzeKeyEvent(e.getKeyChar(), false, gameScreen, player, chosenSong);
                 }
 
                 @Override
