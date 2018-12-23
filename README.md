@@ -36,5 +36,5 @@ suit my need before they were used in the game.
 4. Play Button Icon: https://www.clipartmax.com/middle/m2i8b1m2d3d3A0d3_movie-player-play-button-comments-round-play-button-png/
 5. Window Music Icon: https://www.iconfinder.com/icons/1165189/music_musical_musical_notation_musical_note_musical_symbol_note_icon
 
-![Alt text](static/screenshots/selection_screen.png)
-![Alt text](static/screenshots/in_game.png)
+![Selection Screen](/static/screenshots/selection_screen.png)
+![In Game](/static/screenshots/in_game.png)
