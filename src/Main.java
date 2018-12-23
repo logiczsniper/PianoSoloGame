@@ -11,12 +11,24 @@ import java.util.HashMap;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * Runs the fantastic Piano Solo game.
+ *
+ * @author Logan Czernel
+ * @since 3-12-2018
+ */
+
 public class Main {
 
     public static void main(String[] args) {
+        // Start the selection process which automatically starts the game afterwards
         songSelection();
     }
 
+    /**
+     * Creates a window to get the user's input- which song will the game play. Using this information, it then starts
+     * the game by calling playGame().
+     */
     private static void songSelection() {
         JFrame selectionScreen = new JFrame("Piano Solo");
         screenSetUp(selectionScreen);
@@ -55,6 +67,17 @@ public class Main {
         selectionScreen.setVisible(true);
     }
 
+    /**
+     * Uses a switch statement to determine which key has been pressed and defines certain variables based off this
+     * information. It uses the parameters and the previously defined variables to take action- either display or play
+     * a note.
+     *
+     * @param character   the character that was pressed.
+     * @param animateNote whether or not to animate the note (display it) or play the note.
+     * @param gameScreen  the AnimationJFrame game screen.
+     * @param player      the JFugue Player object.
+     * @param chosenSong  the Song object chosen by the user.
+     */
     private static void analyzeKeyEvent(char character, boolean animateNote, AnimationJFrame gameScreen, Player player,
                                         Song chosenSong) {
 
@@ -145,6 +168,10 @@ public class Main {
             this.player = player;
         }
 
+        /**
+         * Displays notes. Runs in separate thread in order to be able to sleep without disrupting the game. Must sleep
+         * in order to have certain rests between certain songs.
+         */
         public void run() {
             for (char character : chosenSong.value.toCharArray()) {
                 analyzeKeyEvent(character, true, gameScreen, player, chosenSong);
@@ -164,6 +191,11 @@ public class Main {
             this.currentNote = currentNote;
         }
 
+        /**
+         * Plays the notes. Each time a note is played it gets it's own thread to run in. This is so that notes can be played
+         * more consistently and closer together- even at the same time although it does not create the same sound as that
+         * of a real piano playing two notes at the same time.
+         */
         public void run() {
             try {
                 player.play(new Note(currentNote).setDuration(chosenSong.defaultNoteDuration));
@@ -173,12 +205,24 @@ public class Main {
         }
     }
 
+    /**
+     * Just to save myself doing this with all three JFrames, this method carries out the same setUp process found with
+     * all my screens.
+     *
+     * @param screen the JFrame to be set up.
+     */
     private static void screenSetUp(JFrame screen) {
         screen.getContentPane().setBackground(new Color(47, 46, 44));
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         screen.setIconImage(Toolkit.getDefaultToolkit().getImage("static/appIcon.png"));
     }
 
+    /**
+     * Displays life remaining in it's own screen.
+     *
+     * @param maxLives the maximum lives (which varies based on difficulty) to be displayed.
+     * @return the instance of Hearts class that displays the hearts.
+     */
     private static Hearts displayLife(int maxLives) {
         JFrame heartScreen = new JFrame("Life Remaining: ");
         heartScreen.setSize(385, 120);
@@ -190,6 +234,12 @@ public class Main {
         return allHearts;
     }
 
+    /**
+     * Sets up access to songs through the SongBank, sets up the gameScreen and Player, starts running the NoteDisplayThread,
+     * starts listening for key presses.
+     *
+     * @param songTitle the title of the song that was chosen by the user.
+     */
     private static void playGame(String songTitle) {
         SongBank songBank = new SongBank();
         Song chosenSong = songBank.getSongByTitle(songTitle);
@@ -223,6 +273,13 @@ public class Main {
         });
     }
 
+    /**
+     * Uses the notePositions HashMap and the x_value of the note to determine if the key pressed is actually hitting
+     * one of the notes on time.
+     *
+     * @param x_value the x_value of the note.
+     * @param notePositions HashMap that contains the co-ordinates of each note that is the key to the note itself.
+     */
     private static void noteHitRecognition(int x_value, HashMap<Pair, Board> notePositions) {
         try {
             Board potentialNote = identifyNote(notePositions, x_value);
@@ -233,6 +290,13 @@ public class Main {
         }
     }
 
+    /**
+     * Identify if there is a note on the given x_value that is able to be hit.
+     *
+     * @param notePositions HashMap that contains the co-ordinates of each note that is the key to the note itself.
+     * @param x_value the potential x_value.
+     * @return if there is a note able to be hit, the Board object (the note). Else, null.
+     */
     private static Board identifyNote(HashMap<Pair, Board> notePositions, int x_value) {
         for (Board note : notePositions.values()) {
             if (note.x == x_value && note.canHit) {
@@ -242,6 +306,13 @@ public class Main {
         return null;
     }
 
+    /**
+     * Plays note in a new instance of NotePlayThread.
+     *
+     * @param player the JFugue Player object.
+     * @param chosenSong the song chosen by the user.
+     * @param currentNote the note to be played by the Player.
+     */
     private static void playNote(Player player, Song chosenSong, String currentNote) {
         NotePlayThread notePlayThread = new NotePlayThread(player, chosenSong, currentNote);
         notePlayThread.start();
