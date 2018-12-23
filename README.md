@@ -37,4 +37,4 @@ suit my need before they were used in the game.
 5. Window Music Icon: https://www.iconfinder.com/icons/1165189/music_musical_musical_notation_musical_note_musical_symbol_note_icon
 
 ![Selection Screen](/static/screenshots/selection_screen.png)
-![In Game](/static/screenshots/in_game.png)
+![In Game](PianoSoloGame/static/screenshots/in_game.PNG)
